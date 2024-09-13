@@ -1,0 +1,24 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Computer {
+  id                  Int      @id @default(autoincrement())
+  manufacturer        String   @map("manufacturer")
+  serialNumber        String   @unique @map("serial_number")
+  status              String   @map("status")
+  purchaseDate        DateTime @map("purchase_date")
+  warrantyExpiryDate  DateTime @map("warranty_expiry_date")
+  specifications      String?  @map("specifications")
+  imageURL            String?  @map("image_url")
+
+  @@map("computers")
+}

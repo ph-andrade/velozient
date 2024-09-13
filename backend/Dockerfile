@@ -1,0 +1,20 @@
+FROM node:lts-alpine
+
+WORKDIR /usr/app
+
+COPY package*.json ./
+COPY prisma ./prisma/
+
+RUN npm install
+
+COPY . .
+
+RUN npm run build
+
+RUN npm config set cache /tmp --global
+
+RUN npx prisma generate
+
+EXPOSE 3333
+
+CMD [ "npm", "run", "start:migrate:prod" ]
