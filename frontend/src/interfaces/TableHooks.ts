@@ -6,4 +6,6 @@ export interface TableHooks {
   setComputers: Dispatch<SetStateAction<Computer[]>>;
   loadMoreData: () => void;
   hasMore: boolean;
+  openFormModal: (computer: Computer | null) => void;
+  openDeleteModal: (computer: Computer) => void;
 }

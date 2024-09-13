@@ -1,10 +1,10 @@
 export type Computer = {
-  id: number;
+  id?: number;
   manufacturer: string;
   serialNumber: string;
   status: string;
-  purchaseDate: Date;
-  warrantyExpiryDate: Date;
+  purchaseDate: string;
+  warrantyExpiryDate: string;
   specifications?: string;
   imageURL?: string;
 }

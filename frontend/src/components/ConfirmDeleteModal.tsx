@@ -1,15 +1,8 @@
 import React from 'react';
 import { ModalOverlay, ModalContent, ModalActions, ConfirmButton, CancelButton } from '../styles/components/ConfirmModal';
-import { Computer } from '@/interfaces/Computer';
+import { ConfirmDeleteModalHooks } from '@/interfaces/ConfirmDeleteModalHooks';
 
-interface ConfirmModalProps {
-  show: boolean;
-  onClose: () => void;
-  onConfirm: () => void;
-  computer: Computer;
-}
-
-const ConfirmDeleteModal: React.FC<ConfirmModalProps> = ({ show, onClose, onConfirm, computer }) => {
+const ConfirmDeleteModal: React.FC<ConfirmDeleteModalHooks> = ({ show, onClose, onConfirm, computer }) => {
   if (!show) return null;
 
   return (

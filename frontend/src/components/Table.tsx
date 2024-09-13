@@ -1,86 +1,24 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { FaPencilAlt, FaTimes } from 'react-icons/fa';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { List } from '../styles/components/List';
 import WarnNonContent from './WarnNonContent';
-import { TableHooks } from '@/interfaces/SellerTableHooks';
-import ConfirmDeleteModal from './ConfirmDeleteModal';
-import ComputerFormModal from './ComputerFormModal'; // Importa o modal
-import api from '@/services/api';
-import { Computer } from '@/interfaces/Computer';
+import { TableHooks } from '@/interfaces/TableHooks';
 
 const Table: React.FC<TableHooks & { loadMoreData: () => void; hasMore: boolean }> = ({
   computers,
-  setComputers,
   loadMoreData,
   hasMore,
+  openFormModal,
+  openDeleteModal,
 }) => {
-  const [selectedComputer, setSelectedComputer] = useState<Computer | null>(null);
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [isFormModalOpen, setIsFormModalOpen] = useState(false);
-
-  const handleOpenDeleteModal = (computer: Computer) => {
-    setSelectedComputer(computer);
-    setIsDeleteModalOpen(true);
-  };
-
-  const handleCloseDeleteModal = () => {
-    setIsDeleteModalOpen(false);
-    setSelectedComputer(null);
-  };
-
-  const handleOpenFormModal = (computer: Computer | null) => {
-    setSelectedComputer(computer);
-    setIsFormModalOpen(true);
-  };
-
-  const handleCloseFormModal = () => {
-    setIsFormModalOpen(false);
-    setSelectedComputer(null);
-  };
-
-  const handleDeleteComputer = async () => {
-    if (selectedComputer) {
-      try {
-        await api.delete(`/computers/${selectedComputer.id}`);
-        setComputers(prevComputers =>
-          prevComputers.filter(computer => computer.id !== selectedComputer.id)
-        );
-      } catch (error) {
-        console.error('Error deleting computer:', error);
-      } finally {
-        handleCloseDeleteModal();
-      }
-    }
-  };
-
-  const handleSaveComputer = async (updatedComputer: Computer) => {
-    try {
-      if (updatedComputer.id) {
-        await api.put(`/computers/${updatedComputer.id}`, updatedComputer);
-        setComputers(prevComputers =>
-          prevComputers.map(computer =>
-            computer.id === updatedComputer.id ? updatedComputer : computer
-          )
-        );
-      } else {
-        const response = await api.post('/computers', updatedComputer);
-        setComputers(prevComputers => [...prevComputers, response.data]);
-      }
-    } catch (error) {
-      console.error('Error saving computer:', error);
-    } finally {
-      handleCloseFormModal();
-    }
-  };
-
   const defaultImage = '/default-computer.jpeg';
 
   const getImageSrc = (imageURL: string | undefined) => {
     return imageURL || defaultImage;
   };
 
-  const getWarrantyColor = (warrantyExpiryDate: Date): string => {
+  const getWarrantyColor = (warrantyExpiryDate: string): string => {
     const expiryDate = new Date(warrantyExpiryDate);
     const today = new Date();
     const diffTime = expiryDate.getTime() - today.getTime();
@@ -128,11 +66,8 @@ const Table: React.FC<TableHooks & { loadMoreData: () => void; hasMore: boolean 
                   </div>
                   <div className="info-row">
                     <div>
-                      <strong>Status:</strong> {computer.status}
-                    </div>
-                    <div>
                       <strong>Purchase Date:</strong>{' '}
-                      {new Date(computer.purchaseDate).toLocaleDateString()}
+                      {new Date(computer.purchaseDate).toLocaleDateString('en-GB', { timeZone: 'UTC' })}
                     </div>
                   </div>
                   <div className="info-row">
@@ -143,7 +78,7 @@ const Table: React.FC<TableHooks & { loadMoreData: () => void; hasMore: boolean 
                           color: getWarrantyColor(computer.warrantyExpiryDate),
                         }}
                       >
-                        {new Date(computer.warrantyExpiryDate).toLocaleDateString()}
+                        {new Date(computer.warrantyExpiryDate).toLocaleDateString('en-GB', { timeZone: 'UTC' })}
                       </span>
                     </div>
                   </div>
@@ -154,10 +89,10 @@ const Table: React.FC<TableHooks & { loadMoreData: () => void; hasMore: boolean 
                   )}
                 </div>
                 <div className="card-actions">
-                  <button className="edit" onClick={() => handleOpenFormModal(computer)}>
+                  <button className="edit" onClick={() => openFormModal(computer)}>
                     <FaPencilAlt />
                   </button>
-                  <button className="delete" onClick={() => handleOpenDeleteModal(computer)}>
+                  <button className="delete" onClick={() => openDeleteModal(computer)}>
                     <FaTimes />
                   </button>
                 </div>
@@ -168,22 +103,6 @@ const Table: React.FC<TableHooks & { loadMoreData: () => void; hasMore: boolean 
       ) : (
         <WarnNonContent />
       )}
-
-      {selectedComputer && (
-        <ConfirmDeleteModal
-          show={isDeleteModalOpen}
-          onClose={handleCloseDeleteModal}
-          onConfirm={handleDeleteComputer}
-          computer={selectedComputer}
-        />
-      )}
-
-      <ComputerFormModal
-        show={isFormModalOpen}
-        onClose={handleCloseFormModal}
-        computer={selectedComputer || undefined}
-        onSave={handleSaveComputer}
-      />
     </>
   );
 };

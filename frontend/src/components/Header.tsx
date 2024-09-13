@@ -1,13 +1,9 @@
 import React from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { Container } from '../styles/components/Header';
-import { Computer } from '@/interfaces/Computer';
+import { HeaderHooks } from '@/interfaces/HeaderHooks';
 
-interface HeaderProps {
-  openFormModal: (computer: Computer | null) => void;
-}
-
-const Header: React.FC<HeaderProps> = ({ openFormModal }) => {
+const Header: React.FC<HeaderHooks> = ({ openFormModal }) => {
   return (
     <Container>
       <h1>Velozient Computers</h1>

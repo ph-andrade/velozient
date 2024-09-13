@@ -39,9 +39,7 @@ export class ComputerController {
     const filters = {
       page,
       limit,
-      ...(query.serialNumber && { serialNumber: query.serialNumber }),
     };
-    console.log(filters);
     return this.computerService.list(filters);
   }
 

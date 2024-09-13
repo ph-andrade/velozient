@@ -1,4 +1,3 @@
-// components/ModalStyles.tsx
 import styled from 'styled-components';
 
 export const ModalOverlay = styled.div`
@@ -38,14 +37,19 @@ export const ModalContent = styled.div`
       font-weight: bold;
       display: flex;
       flex-direction: column;
+
+      .error {
+        color: #ff0000;
+      }
     }
 
-    input, textarea {
+    input, textarea, select {
       margin-top: 5px;
       padding: 10px;
       border: 1px solid #ddd;
       border-radius: 4px;
       width: 100%;
+      font-size: 14px;
     }
 
     textarea {
@@ -77,7 +81,7 @@ export const ModalContent = styled.div`
         }
 
         &:last-of-type {
-          background: #dc3545; /* Cor avermelhada para o botão Cancel */
+          background: #dc3545;
           &:hover {
             background: #c82333;
           }
@@ -92,12 +96,12 @@ export const ModalContent = styled.div`
     right: 10px;
     background: transparent;
     border: none;
-    color: #000; /* Cor preta para o botão de fechar */
+    color: #000;
     font-size: 24px;
     cursor: pointer;
 
     &:hover {
-      color: #333; /* Cor preta um pouco mais escura ao passar o mouse */
+      color: #333;
     }
   }
 
@@ -112,7 +116,7 @@ export const ModalContent = styled.div`
       font-size: 12px;
     }
 
-    input, textarea {
+    input, textarea, select {
       padding: 2px;
       font-size: 10px;
       max-height: 25px;
@@ -128,7 +132,7 @@ export const ModalContent = styled.div`
       }
     }
   }
-  
+
   @media (max-width: 480px) {
     max-width: 200px;
     max-height: 500px;
@@ -142,7 +146,7 @@ export const ModalContent = styled.div`
       font-size: 10px;
     }
 
-    input, textarea {
+    input, textarea, select {
       font-size: 8px;
       max-height: 20px;
       padding: 1px;

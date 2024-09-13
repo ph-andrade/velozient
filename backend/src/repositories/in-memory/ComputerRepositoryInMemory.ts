@@ -22,14 +22,10 @@ export class ComputerRepositoryInMemory implements ComputerRepository {
   }
 
   async list(query: ListComputersDTO): Promise<Computer[]> {
-    const { page, limit, serialNumber } = query;
+    const { page, limit } = query;
     const referenceValue = page * limit;
 
-    return this.computers
-      .filter((computer) =>
-        serialNumber ? computer.serialNumber.includes(serialNumber) : true,
-      )
-      .slice(referenceValue, referenceValue + limit);
+    return this.computers.slice(referenceValue, referenceValue + limit);
   }
 
   async update(id: number, data: UpdateComputerDTO): Promise<Computer> {

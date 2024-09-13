@@ -23,16 +23,11 @@ export class PrismaComputerRepository {
   }
 
   async list(query: ListComputersDTO): Promise<Computer[]> {
-    const { page = 1, limit = 10, serialNumber } = query;
+    const { page = 1, limit = 10 } = query;
 
     return prisma.computer.findMany({
       skip: (page - 1) * limit,
       take: limit,
-      where: {
-        serialNumber: {
-          contains: serialNumber || undefined,
-        },
-      },
     });
   }
 

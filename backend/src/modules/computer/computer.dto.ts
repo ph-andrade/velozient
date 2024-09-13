@@ -4,7 +4,6 @@ import {
   IsEnum,
   IsNotEmpty,
   IsOptional,
-  IsUrl,
   IsDateString,
 } from 'class-validator';
 import { Type } from 'class-transformer';
@@ -75,7 +74,6 @@ export class CreateComputerDTO {
   })
   @IsString()
   @IsOptional()
-  @IsUrl()
   imageURL?: string;
 }
 
@@ -145,7 +143,6 @@ export class UpdateComputerDTO {
   })
   @IsString()
   @IsOptional()
-  @IsUrl()
   imageURL?: string;
 }
 
@@ -165,13 +162,4 @@ export class ListComputersDTO {
   @Type(() => Number)
   @IsOptional()
   limit?: number;
-
-  @ApiProperty({
-    description: 'Filter computers by serial number with partial match.',
-    example: 'CAZ',
-    required: false,
-  })
-  @IsString()
-  @IsOptional()
-  serialNumber?: string;
 }

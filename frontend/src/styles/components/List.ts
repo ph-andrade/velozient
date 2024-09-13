@@ -5,6 +5,7 @@ export const List = styled.div<{ selectable?: boolean }>`
   flex-direction: column;
   gap: 16px;
   margin: 0;
+  margin-top: 20px;
   padding: 0;
   background: transparent;
 

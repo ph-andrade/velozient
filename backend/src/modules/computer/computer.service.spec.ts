@@ -93,7 +93,7 @@ describe('ComputerService', () => {
     };
 
     const updatedData = {
-      serialNumber: 'CAZ02L13ECF8',
+      serialNumber: 'CAZ02L13ECF9',
       status: Status.Available,
     };
 

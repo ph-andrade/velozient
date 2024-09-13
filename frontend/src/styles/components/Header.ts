@@ -8,6 +8,10 @@ export const Container = styled.header`
   padding: 10px 20px;
   background-color: ${props => props.theme.colors.primary};
   margin-bottom: 30px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
 
   h1 {
     color: #fff;

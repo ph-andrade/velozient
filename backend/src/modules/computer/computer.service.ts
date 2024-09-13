@@ -38,7 +38,10 @@ export class ComputerService {
 
   async create(data: CreateComputerDTO): Promise<Computer> {
     this.validateSerialNumber(data.manufacturer, data.serialNumber);
-    return this.computerRepository.create(data);
+    const purchaseDate = new Date(data.purchaseDate);
+    const warrantyExpiryDate = new Date(data.warrantyExpiryDate);
+    const requestDate = { ...data, purchaseDate, warrantyExpiryDate };
+    return this.computerRepository.create(requestDate);
   }
 
   async list(query: ListComputersDTO): Promise<Computer[]> {
@@ -56,7 +59,20 @@ export class ComputerService {
     if (!computer) {
       throw new NotFoundException('Computer not found');
     }
-    return this.computerRepository.update(id, data);
+
+    let requestDate = data;
+
+    if (data.purchaseDate) {
+      const purchaseDate = new Date(data.purchaseDate);
+      requestDate = { ...data, purchaseDate };
+    }
+
+    if (data.warrantyExpiryDate) {
+      const warrantyExpiryDate = new Date(data.warrantyExpiryDate);
+      requestDate = { ...data, warrantyExpiryDate };
+    }
+
+    return this.computerRepository.update(id, requestDate);
   }
 
   async delete(id: number): Promise<Computer> {
