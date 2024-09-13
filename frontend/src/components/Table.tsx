@@ -66,6 +66,9 @@ const Table: React.FC<TableHooks & { loadMoreData: () => void; hasMore: boolean 
                   </div>
                   <div className="info-row">
                     <div>
+                      <strong>Status:</strong> {computer.status}
+                    </div>
+                    <div>
                       <strong>Purchase Date:</strong>{' '}
                       {new Date(computer.purchaseDate).toLocaleDateString('en-GB', { timeZone: 'UTC' })}
                     </div>

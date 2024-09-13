@@ -64,12 +64,12 @@ export class ComputerService {
 
     if (data.purchaseDate) {
       const purchaseDate = new Date(data.purchaseDate);
-      requestDate = { ...data, purchaseDate };
+      requestDate = { ...requestDate, purchaseDate };
     }
 
     if (data.warrantyExpiryDate) {
       const warrantyExpiryDate = new Date(data.warrantyExpiryDate);
-      requestDate = { ...data, warrantyExpiryDate };
+      requestDate = { ...requestDate, warrantyExpiryDate };
     }
 
     return this.computerRepository.update(id, requestDate);

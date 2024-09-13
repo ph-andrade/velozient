@@ -1,4 +1,4 @@
-# Hubla
+# Velozient Inventory Tracker
 Thanks for the opportunity and I apologize if I missed any requirements or if I misunderstood any of them, this week that I developed this project was extremely busy, anything you can tell me and I can review it.
 
 #About
