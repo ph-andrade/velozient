@@ -45,6 +45,8 @@ npm run dev
 ```
 
 # Acess
-The frontend application is running on port 3000 (http://localhost:3000).
-The backend application is running on port 3333 (http://localhost:3333).
-Access http://localhost:3333/api#/ for documentation.
+The frontend application is running on port 3000 ([http://localhost:3000](http://localhost:3000)).
+
+The backend application is running on port 3333 ([http://localhost:3333](http://localhost:3333)).
+
+Access [http://localhost:3333/api#/](http://localhost:3333/api#/) for documentation.
