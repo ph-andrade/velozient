@@ -1,4 +1,3 @@
-import { Dispatch, SetStateAction } from "react";
 import { Computer } from "./Computer";
 
 export interface ComputerFormModalHooks {
