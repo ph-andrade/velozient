@@ -22,6 +22,7 @@ const ComputerFormModal: React.FC<ComputerFormModalHooks> = ({ show, onClose, co
   });
 
   useEffect(() => {
+    setErrors({ serialNumber: '' });
     setComputerId(computer?.id || 0);
     setFormData({
       manufacturer: computer?.manufacturer || 'Apple',

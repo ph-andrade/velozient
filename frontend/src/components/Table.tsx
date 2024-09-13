@@ -58,15 +58,7 @@ const Table: React.FC<TableHooks & { loadMoreData: () => void; hasMore: boolean 
                 <div className="card-content">
                   <div className="info-row">
                     <div>
-                      <strong>Manufacturer:</strong> {computer.manufacturer}
-                    </div>
-                    <div>
                       <strong>Serial Number:</strong> {computer.serialNumber}
-                    </div>
-                  </div>
-                  <div className="info-row">
-                    <div>
-                      <strong>Status:</strong> {computer.status}
                     </div>
                     <div>
                       <strong>Purchase Date:</strong>{' '}
@@ -74,6 +66,9 @@ const Table: React.FC<TableHooks & { loadMoreData: () => void; hasMore: boolean 
                     </div>
                   </div>
                   <div className="info-row">
+                    <div>
+                      <strong>Manufacturer:</strong> {computer.manufacturer}
+                    </div>
                     <div>
                       <strong>Warranty Expiry:</strong>{' '}
                       <span
@@ -83,6 +78,11 @@ const Table: React.FC<TableHooks & { loadMoreData: () => void; hasMore: boolean 
                       >
                         {new Date(computer.warrantyExpiryDate).toLocaleDateString('en-GB', { timeZone: 'UTC' })}
                       </span>
+                    </div>
+                  </div>
+                  <div className="info-row">
+                    <div>
+                      <strong>Status:</strong> {computer.status}
                     </div>
                   </div>
                   {computer.specifications && (

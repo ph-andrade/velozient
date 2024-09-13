@@ -1,9 +1,5 @@
 const sqlite3 = require('sqlite3').verbose();
 const { faker } = require('@faker-js/faker'); // Atualizado para o novo pacote
-const { randomUUID } = require('crypto'); // Para gerar UUIDs
-
-// Configurar locale do faker para inglês (se aplicável)
-faker.locale = 'en_US'; // Defina o locale para inglês, se possível
 
 // Conectar ao banco de dados SQLite
 const db = new sqlite3.Database('./backend/prisma/dev.db');
@@ -36,37 +32,35 @@ function getRandomManufacturer() {
 }
 
 function getRandomSerialNumber(manufacturer) {
-  const serialPatterns = {
-    Apple: /^[A-Z]{3}[C-Z0-9][1-9C-NP-RTY][A-Z0-9]{3}[A-Z0-9]{4}$/,
-    Dell: /^[A-Z0-9]{7}$/,
-    HP: /^[A-Z0-9]{3}\d{3}[A-Z0-9]{4}$/,
-    Lenovo: /^\d{2}-[A-Z0-9]{5}$/
-  };
-
   let serialNumber;
   switch (manufacturer) {
     case 'Apple':
-      serialNumber = faker.string.alpha({ length: 3, casing: 'upper' }) +
-        faker.string.alpha({ length: 1, casing: 'upper' }) +
-        faker.string.alpha({ length: 1, casing: 'upper' }) +
-        faker.string.alpha({ length: 3, casing: 'upper' }) +
-        faker.string.alpha({ length: 4, casing: 'upper' });
+      // Apple serial number format: 3 letras, 1 alfanumérico (C-Z ou 0-9), 1 dígito (1-9 ou C-NP-RTY), 3 alfanuméricos, 4 alfanuméricos
+      serialNumber = faker.string.alpha({ length: 3, casing: 'upper' }) + // 3 letras
+        faker.helpers.arrayElement(['C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9']) + // Letra C-Z ou número
+        faker.helpers.arrayElement(['1', '2', '3', '4', '5', '6', '7', '8', '9', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'R', 'T', 'Y']) + // Número 1-9 ou letras C-NP-RTY
+        faker.string.alphanumeric({ length: 3, casing: 'upper' }) + // 3 letras ou números
+        faker.string.alphanumeric({ length: 4, casing: 'upper' }); // 4 letras ou números
       break;
     case 'Dell':
+      // Dell serial number example: A1B2C3D
       serialNumber = faker.string.alphanumeric({ length: 7, casing: 'upper' });
       break;
     case 'HP':
+      // HP serial number example: ABC123DEF4
       serialNumber = faker.string.alphanumeric({ length: 3, casing: 'upper' }) +
         faker.number.int({ min: 100, max: 999 }) +
         faker.string.alphanumeric({ length: 4, casing: 'upper' });
       break;
     case 'Lenovo':
+      // Lenovo serial number example: 12-AB123
       serialNumber = faker.number.int({ min: 10, max: 99 }) + '-' +
         faker.string.alphanumeric({ length: 5, casing: 'upper' });
       break;
   }
   return serialNumber;
 }
+
 
 function getRandomDate(startYear, endYear) {
   const start = new Date(startYear, 0, 1);
