@@ -3,9 +3,14 @@ Thanks for the opportunity and I apologize if I missed any requirements or if I 
 
 # About
 API built with Nest.js and Prisma.
+
 FrontEnd build with Next.js.
 
+SQLite is used as the database.
+
 I decided to use both because they are currently being widely adopted by many companies due to their ease of use and standardized structure.
+
+A script has been created to generate 1,000 test records and save them to SQLite for testing purposes.
 
 ## Running front and backend with docker
 Change configs in "docker-compose.yml" if you want.
